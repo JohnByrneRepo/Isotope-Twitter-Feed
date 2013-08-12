@@ -1,0 +1,125 @@
+body {
+    background-color: #000;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    word-wrap: break-word;
+}
+
+div#wrapper {
+  width: 95%;
+  margin: auto;
+}
+
+.item {
+  float: left;
+  margin: 5px;
+  color: white;
+}
+
+.minimise {
+  height: auto;
+  width: 155px;
+  background: #4d545e;
+  border: 1px solid white;
+  padding: 5px;
+}
+
+.minimise img {
+    position: relative;
+    left: 47px;
+}
+
+div#profileName, title, p, h1 {
+    color: #fff;
+}
+
+input {
+    position: absolute;
+    left:90px;
+}
+
+.maximise {
+  display: none;
+  height: auto;
+  width: 170px;
+  background: teal;
+}
+
+.minimise h1 {
+    font-size: 0.9em;
+    font-weight: 700;
+    padding-top: 3px;
+    margin-left: 3px;
+    }
+
+.maximise h1 {
+    font-size: 1.3em;
+    font-weight: 700;
+    padding-top: 6px;
+    margin-left: 6px;
+    }
+
+.minimise p {
+    font-size: 0.8em;
+    padding-top: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    }
+
+.maximise p {
+    font-size: 1.0em;
+    padding-top: 6px;
+    margin-left: 6px;
+    }
+
+.maximise p + p {
+    font-size: 1.1em;
+    font-style: italic;
+    padding-top: 6px;
+    margin-left: 6px;
+    }
+
+/* Start: Recommended Isotope styles */
+
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+  -webkit-transition-duration: 0.8s;
+     -moz-transition-duration: 0.8s;
+          transition-duration: 0.8s;
+}
+
+.isotope {
+  -webkit-transition-property: height, width;
+     -moz-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+  -webkit-transition-property: -webkit-transform, opacity;
+     -moz-transition-property:    -moz-transform, opacity;
+          transition-property:         transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+  -webkit-transition-duration: 0s;
+     -moz-transition-duration: 0s;
+          transition-duration: 0s;
+}
+
+/* End: Recommended Isotope styles */
