@@ -4,6 +4,10 @@ body {
     word-wrap: break-word;
 }
 
+div#container {
+    margin: 0 auto;
+}
+
 div#wrapper {
   width: 95%;
   margin: auto;
@@ -26,7 +30,13 @@ div#wrapper {
 .minimise img {
     position: relative;
     left: 47px;
+    top: 4px;
 }
+
+a:link {text-decoration:none; color: #fff;} 
+a:visited {text-decoration:none; color: #fff;}
+a:hover {text-decoration:underline; color: #fff;}  
+a:active {text-decoration:underline;color: #77f; background-color:#333;}
 
 div#profileName, title, p, h1 {
     color: #fff;

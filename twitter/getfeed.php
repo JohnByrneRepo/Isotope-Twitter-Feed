@@ -48,7 +48,7 @@ foreach ($json as $key => $val) {
 	$tweets[$count] = $text;	
 	$count += 1; 
 }
-
+/*
 echo '<br>';
 echo 'Dates: ' . '<br>';
 var_dump($tweetDates);
@@ -56,7 +56,7 @@ echo '<br>';
 echo 'Tweets: ' . '<br>';
 var_dump($tweets);
 echo '<br>';
-
+*/
 
 ?>
 

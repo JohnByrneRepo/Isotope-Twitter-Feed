@@ -32,19 +32,17 @@
             <div id="profileName">Post count <input type="text" name="posts" size="26"></div>
             <input type="submit" value="Refresh" name="commit" id="submit" class="button"/>
         </form>
-        
- <!--
+
         <br>
         <br>
        
-        <h1>Sort</h1>
+        <p>
 
         <ul id="sort-by" class="option-set clearfix" data-option-key="sortBy">
-          <li><a href="#sortBy=original-order" data-option-value="original-order" class="selected" data>default</a></li>
-          <li><a href="#sortBy=name" data-option-value="name">name</a></li>
-          <li><a href="#sortBy=random" data-option-value="random">random</a></li>
+            <li id="shuffle"><a id="shuffle" href='#shuffle'>Shuffle</a></li>
         </ul>
- -->       
+    </p>
+      
         <br>
         <br>
        
@@ -67,24 +65,16 @@
                     },
                     sortBy: 'selected'
                 });
-    /*
-                $('.item').click(function () {
-
-                    if ($(this).hasClass('selected')) {
-                        $(this).removeClass('selected');
-                        $(this).children('.maximise').hide();
-                        $(this).children('.minimise').show();
-                    } else {
-                        $(this).addClass('selected');
-                        $(this).children('.minimise').hide();
-                        $(this).children('.maximise').show();
-                    }
-
-                    //$container.isotope('shuffle');
-                    $container.isotope('reLayout');
+                
+                var $sortBy = $('#sort-by');
+                $('#shuffle a').click(function(){
+                    $container.isotope('shuffle');
+                    $sortBy.find('.selected').removeClass('selected');
+                    $sortBy.find('[data-option-value="random"]').addClass('selected');
+                    return false;
                 });
-    */
             });
+            
         </script>
 
         <div id="wrapper">
@@ -202,8 +192,86 @@
 
                 }    
 
-            // see http://jsfiddle.net/ub3UD/98/
+                // Column centering: see http://jsfiddle.net/ub3UD/98/  http://jsfiddle.net/trewknowledge/4rEzD/1/
 
+                $(function() {
+
+                    $.Isotope.prototype._getCenteredMasonryColumns = function() {
+                        this.width = this.element.width();
+                        var parentWidth = this.element.parent().width();
+                        // i.e. options.masonry && options.masonry.columnWidth
+                        var colW = this.options.masonry && this.options.masonry.columnWidth ||
+                        // or use the size of the first item
+                        this.$filteredAtoms.outerWidth(true) ||
+                        // if there's no items, use size of container
+                        parentWidth;
+                        var cols = Math.floor(parentWidth / colW);
+                        cols = Math.max(cols, 1);
+                        // i.e. this.masonry.cols = ....
+                        this.masonry.cols = cols;
+                        // i.e. this.masonry.columnWidth = ...
+                        this.masonry.columnWidth = colW;
+                    };
+
+                    $.Isotope.prototype._masonryReset = function() {
+                        // layout-specific props
+                        this.masonry = {};
+                        // FIXME shouldn't have to call this again
+                        this._getCenteredMasonryColumns();
+                        var i = this.masonry.cols;
+                        this.masonry.colYs = [];
+                        while (i--) {
+                            this.masonry.colYs.push(0);
+                        }
+                    };
+
+                    $.Isotope.prototype._masonryResizeChanged = function() {
+                        var prevColCount = this.masonry.cols;
+                        // get updated colCount
+                        this._getCenteredMasonryColumns();
+                        return (this.masonry.cols !== prevColCount);
+                    };
+
+                    $.Isotope.prototype._masonryGetContainerSize = function() {
+                        var unusedCols = 0,
+                            i = this.masonry.cols;
+                        // count unused columns
+                        while (--i) {
+                            if (this.masonry.colYs[i] !== 0) {
+                                break;
+                            }
+                            unusedCols++;
+                        }
+                        return {
+                            height: Math.max.apply(Math, this.masonry.colYs),
+                            // fit container to columns that have been used;
+                            width: (this.masonry.cols - unusedCols) * this.masonry.columnWidth
+                        };
+                    };
+
+
+                    var $container = $('#container'),
+                        $body = $('body'),
+                        colW = 60,
+                        columns = null;
+
+                    $container.isotope({
+                        // disable window resizing
+                        resizable: false,
+                        masonry: {
+                            columnWidth: colW
+                        }
+                    });
+
+                    //FILTERING
+                    $('#filters a').click(function() {
+                        var selector = $(this).attr('data-filter');
+                        $container.isotope({
+                            filter: selector
+                        });
+                        return false;
+                    });
+                });
             </script>
         </div>
         </div>
